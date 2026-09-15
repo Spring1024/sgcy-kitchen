@@ -10,7 +10,7 @@ module.exports = {
   call,
 
   // login
-  login: (code) => call('login', 'login', { code }),
+  login: () => call('login', 'login'),
   getUserInfo: (openid) => call('login', 'getUserInfo', { openid }),
   updateProfile: (data) => call('login', 'updateProfile', data),
 
