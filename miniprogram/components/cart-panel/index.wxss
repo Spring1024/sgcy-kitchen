@@ -2,7 +2,7 @@
 .panel {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 61;
   background: #fff; border-radius: 32rpx 32rpx 0 0;
-  max-height: 70vh; display: flex; flex-direction: column;
+  max-height: var(--content-height); display: flex; flex-direction: column;
 }
 .panel-header {
   display: flex; justify-content: space-between; align-items: center;
@@ -35,7 +35,7 @@
 }
 .qty-plus { background: #E85D04; color: #fff; }
 .qty-num { font-size: 26rpx; font-weight: bold; min-width: 36rpx; text-align: center; color: #370617; }
-.panel-footer { padding: 20rpx 32rpx 48rpx; border-top: 1rpx solid rgba(55,6,23,0.05); }
+.panel-footer { padding: 20rpx 32rpx calc(48rpx + constant(safe-area-inset-bottom)); padding-bottom: calc(48rpx + env(safe-area-inset-bottom)); border-top: 1rpx solid rgba(55,6,23,0.05); }
 .checkout-btn {
   background: #370617; color: #fff; border-radius: 24rpx;
   padding: 28rpx 40rpx; display: flex; justify-content: space-between; font-size: 28rpx;

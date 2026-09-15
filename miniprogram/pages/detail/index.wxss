@@ -9,7 +9,7 @@
   background: #E85D04; color: #fff; font-size: 22rpx; font-weight: bold;
   padding: 8rpx 24rpx; border-radius: 999rpx;
 }
-.content { padding: 0 32rpx; margin-top: -80rpx; position: relative; z-index: 2; padding-bottom: 200rpx; }
+.content { padding: 0 32rpx; margin-top: -80rpx; position: relative; z-index: 2; padding-bottom: calc(180rpx + env(safe-area-inset-bottom)); }
 .main-card { box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.06); }
 .row-between { display: flex; justify-content: space-between; align-items: flex-start; }
 .dish-name { font-size: 40rpx; font-weight: bold; }
@@ -36,7 +36,7 @@
 .qty-num { font-size: 30rpx; font-weight: bold; min-width: 44rpx; text-align: center; }
 .footer-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-  background: rgba(255,255,255,0.95); padding: 20rpx 32rpx 48rpx;
+  background: rgba(255,255,255,0.95); padding: 20rpx 32rpx calc(48rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid rgba(55,6,23,0.05);
 }
 .add-cart-btn { height: 96rpx; font-size: 30rpx; }

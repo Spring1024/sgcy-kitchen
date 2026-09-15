@@ -1,12 +1,19 @@
+:root {
+  /* 基础变量（开发工具预览用） */
+  --content-height: calc(100vh - 260rpx);
+  --safe-bottom: 0px;
+}
+
 .header {
   position: sticky; top: 0; z-index: 30;
   background: var(--color-bg);
   padding: 24rpx 32rpx 16rpx;
 }
+.shop-row { display: flex; align-items: center; gap: 12rpx; }
 .shop-name { font-size: 40rpx; font-weight: bold; }
 .badge {
   font-size: 20rpx; font-weight: normal;
-  padding: 4rpx 16rpx; border-radius: 999rpx; margin-left: 16rpx;
+  padding: 4rpx 16rpx; border-radius: 999rpx; margin-left: 0;
 }
 .badge-open { color: var(--color-accent); background: rgba(232,93,4,0.1); }
 .badge-closed { color: rgba(55,6,23,0.4); background: rgba(55,6,23,0.08); }
@@ -22,7 +29,7 @@
 .body { display: flex; }
 .sidebar {
   width: 176rpx; flex-shrink: 0;
-  height: calc(100vh - 240rpx);
+  height: var(--content-height);
   border-right: 1rpx solid rgba(55,6,23,0.05);
 }
 .side-item {
@@ -38,7 +45,7 @@
 }
 .side-icon { font-size: 28rpx; }
 
-.menu-list { flex: 1; height: calc(100vh - 240rpx); padding: 0 24rpx; }
+.menu-list { flex: 1; height: var(--content-height); padding: 0 24rpx; }
 .cat-title { font-size: 30rpx; font-weight: bold; margin: 24rpx 0; }
 .empty { text-align: center; color: rgba(55,6,23,0.4); padding: 120rpx 0; font-size: 26rpx; }
 
@@ -73,7 +80,7 @@
 }
 
 .cart-bar {
-  position: fixed; left: 32rpx; right: 32rpx; bottom: 160rpx; z-index: 40;
+  position: fixed; left: 32rpx; right: 32rpx; bottom: calc(12rpx + var(--safe-bottom)); z-index: 40;
   background: var(--color-text); color: #fff;
   border-radius: 28rpx; padding: 28rpx 36rpx;
   display: flex; justify-content: space-between; align-items: center;
@@ -98,7 +105,7 @@
 .modal-sheet {
   width: 100%; background: var(--color-bg);
   border-radius: 32rpx 32rpx 0 0;
-  max-height: 85vh; display: flex; flex-direction: column;
+  max-height: var(--content-height); display: flex; flex-direction: column;
 }
 .spec-header { display: flex; gap: 20rpx; padding: 28rpx; border-bottom: 1rpx solid rgba(55,6,23,0.08); }
 .spec-img { width: 128rpx; height: 128rpx; border-radius: 20rpx; }
@@ -118,7 +125,8 @@
 .spec-opt-active { border-color: var(--color-accent); color: var(--color-accent); background: rgba(232,93,4,0.06); font-weight: bold; }
 .spec-footer {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 24rpx 28rpx; background: #fff; border-radius: 0 0 32rpx 32rpx;
+  padding: 24rpx 28rpx calc(24rpx + var(--safe-bottom));
+  background: #fff; border-radius: 0 0 32rpx 32rpx;
   gap: 24rpx;
 }
 .qty-ctrl { display: flex; align-items: center; gap: 20rpx; background: var(--color-bg); border-radius: 999rpx; padding: 8rpx 16rpx; }

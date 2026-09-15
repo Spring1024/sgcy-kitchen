@@ -1,4 +1,4 @@
-.container { padding: 24rpx 32rpx; }
+.container { padding: 24rpx 32rpx; padding-bottom: calc(140rpx + env(safe-area-inset-bottom)); }
 .head { display: flex; justify-content: space-between; align-items: center; }
 .order-id { font-size: 30rpx; font-weight: bold; }
 .status-badge { font-size: 24rpx; padding: 8rpx 20rpx; border-radius: 999rpx; }
@@ -24,7 +24,7 @@
 .points-tip { font-size: 22rpx; color: #606C38; margin-top: 12rpx; }
 .bottom-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-  background: rgba(255,255,255,0.95); padding: 20rpx 32rpx 48rpx;
+  background: rgba(255,255,255,0.95); padding: 20rpx 32rpx calc(48rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid rgba(55,6,23,0.05);
 }
 .cancel-btn { text-align: center; padding: 24rpx; font-size: 28rpx; color: #e5484d; }

@@ -1,4 +1,4 @@
-.admin-container { min-height: 100vh; background: #FAF3EC; padding-bottom: 140rpx; }
+.admin-container { min-height: 100vh; background: #FAF3EC; padding-bottom: calc(140rpx + env(safe-area-inset-bottom)); }
 .admin-header {
   background: linear-gradient(135deg, #1B1A16, #370617);
   padding: 60rpx 40rpx 48rpx; color: #fff;
@@ -36,7 +36,7 @@
 .admin-tabbar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
   background: rgba(27,26,22,0.95); border-top: 1rpx solid rgba(232,93,4,0.15);
-  display: flex; justify-content: space-around; padding: 12rpx 0 28rpx;
+  display: flex; justify-content: space-around; padding: 12rpx 0 calc(28rpx + env(safe-area-inset-bottom));
 }
 .atab {
   display: flex; flex-direction: column; align-items: center; gap: 4rpx;

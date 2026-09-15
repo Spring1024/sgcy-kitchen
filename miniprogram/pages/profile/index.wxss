@@ -1,7 +1,11 @@
 .profile-head { display: flex; gap: 28rpx; padding: 48rpx 40rpx 32rpx; }
-.avatar-btn { padding: 0; background: none; line-height: 1; border-radius: 50%; }
+.avatar-btn {
+  padding: 0; background: none; line-height: 1;
+  border-radius: 50%; width: 160rpx; height: 160rpx;
+  overflow: hidden; flex-shrink: 0;
+}
 .avatar-btn::after { border: none; }
-.avatar { width: 144rpx; height: 144rpx; border-radius: 50%; border: 8rpx solid #fff; box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.1); }
+.avatar { width: 160rpx; height: 160rpx; border-radius: 50%; display: block; }
 .nickname-input {
   font-size: 36rpx; font-weight: bold; background: transparent;
   padding: 0; min-height: 48rpx;
