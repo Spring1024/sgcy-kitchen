@@ -1,0 +1,59 @@
+.admin-container { min-height: 100vh; background: #FAF3EC; padding-bottom: 220rpx; }
+.admin-header {
+  background: linear-gradient(135deg, #1B1A16, #370617);
+  padding: 60rpx 40rpx 40rpx; color: #fff;
+}
+.admin-title { font-size: 34rpx; font-weight: bold; margin-top: 8rpx; }
+.admin-sub { font-size: 22rpx; color: rgba(247,225,215,0.5); }
+.page { padding: 24rpx 32rpx; }
+.card {
+  background: #fff; border-radius: 24rpx; padding: 28rpx; margin-bottom: 20rpx;
+  border: 1rpx solid rgba(55,6,23,0.05);
+}
+.card-title { font-size: 28rpx; font-weight: bold; margin-bottom: 20rpx; }
+.row { display: flex; justify-content: space-between; font-size: 26rpx; padding: 10rpx 0; }
+.label { color: rgba(55,6,23,0.5); }
+.status-chip { font-size: 22rpx; padding: 8rpx 20rpx; border-radius: 999rpx; }
+.st-pending { background: rgba(232,93,4,0.15); color: #E85D04; }
+.st-cooking { background: rgba(255,183,3,0.2); color: #FFB703; }
+.st-done { background: rgba(42,157,143,0.15); color: #2A9D8F; }
+.st-cancelled { background: rgba(55,6,23,0.1); color: rgba(55,6,23,0.5); }
+.dish { display: flex; align-items: flex-start; gap: 20rpx; margin-bottom: 20rpx; }
+.dish-qty-badge {
+  width: 44rpx; height: 44rpx; border-radius: 50%;
+  background: #FAF3EC; color: #E85D04; font-size: 22rpx; font-weight: bold;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.dish-info { flex: 1; min-width: 0; }
+.dish-name { font-size: 26rpx; font-weight: 500; }
+.dish-spec {
+  display: inline-block; font-size: 18rpx; color: rgba(55,6,23,0.55);
+  background: #FAF3EC; border: 1rpx solid rgba(55,6,23,0.08);
+  padding: 2rpx 12rpx; border-radius: 8rpx; margin-top: 8rpx;
+}
+.dish-sub { font-size: 26rpx; color: rgba(55,6,23,0.5); }
+.total-row { border-top: 1rpx solid rgba(55,6,23,0.05); padding-top: 20rpx; margin-top: 8rpx; }
+.total { color: #E85D04; font-weight: bold; font-size: 32rpx; }
+.bottom-bar {
+  position: fixed; left: 0; right: 0; bottom: 110rpx; z-index: 40;
+  background: rgba(250,243,236,0.95); padding: 20rpx 32rpx;
+  border-top: 1rpx solid rgba(55,6,23,0.05); display: flex; gap: 16rpx;
+}
+.bar-btn {
+  flex: 1; text-align: center; padding: 24rpx; border-radius: 20rpx;
+  font-weight: bold; font-size: 28rpx;
+}
+.btn-yellow { background: #FFB703; color: #fff; }
+.btn-teal { background: #2A9D8F; color: #fff; }
+.btn-ghost { background: rgba(55,6,23,0.05); color: rgba(55,6,23,0.5); flex: 0 0 200rpx; }
+.admin-tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  background: rgba(27,26,22,0.95); border-top: 1rpx solid rgba(232,93,4,0.15);
+  display: flex; justify-content: space-around; padding: 12rpx 0 28rpx;
+}
+.atab {
+  display: flex; flex-direction: column; align-items: center; gap: 4rpx;
+  font-size: 28rpx; color: rgba(247,225,215,0.4);
+}
+.atab text { font-size: 20rpx; }
+.atab.active { color: #E85D04; font-weight: bold; }

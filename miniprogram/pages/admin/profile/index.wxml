@@ -1,0 +1,48 @@
+<view class="admin-container">
+  <view class="admin-header">
+    <view class="shop-row">
+      <view class="shop-icon">🏪</view>
+      <view class="shop-info">
+        <view class="shop-name">{{shopConfig.name || '老街食肆'}}</view>
+        <view class="shop-sub">商家账号</view>
+      </view>
+      <view class="open-toggle {{shopConfig.isOpen ? 'open' : ''}}" bindtap="toggleOpen">
+        {{shopConfig.isOpen ? '营业中' : '已打烊'}}
+      </view>
+    </view>
+  </view>
+
+  <view class="page">
+    <!-- 数据看板 -->
+    <view class="stats-row">
+      <view class="stat-card">
+        <view class="stat-num">¥{{todayRevenue}}</view>
+        <view class="stat-label">今日营收</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-num">{{shopConfig.rating || '-'}}</view>
+        <view class="stat-label">店铺评分</view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-num">{{menuCount}}</view>
+        <view class="stat-label">在售菜品</view>
+      </view>
+    </view>
+
+    <!-- 店铺信息 -->
+    <view class="card">
+      <view class="card-title">店铺信息</view>
+      <view class="row"><text class="icon">📞</text><text class="row-text">{{shopConfig.phone || '-'}}</text></view>
+      <view class="row"><text class="icon">📍</text><text class="row-text">{{shopConfig.address || '-'}}</text></view>
+      <view class="row"><text class="icon">🕐</text><text class="row-text">{{shopConfig.openTime || '-'}}</text></view>
+    </view>
+
+    <view class="btn-primary switch-btn" bindtap="switchToUser">切换至用户端 →</view>
+  </view>
+
+  <view class="admin-tabbar">
+    <view class="atab" bindtap="goPage" data-url="/pages/admin/menu/index">🍜<text>菜品</text></view>
+    <view class="atab" bindtap="goPage" data-url="/pages/admin/orders/index">📋<text>订单</text></view>
+    <view class="atab active">👤<text>我的</text></view>
+  </view>
+</view>

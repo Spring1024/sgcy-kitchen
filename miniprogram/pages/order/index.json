@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "味觉食堂",
+  "usingComponents": {
+    "cart-panel": "/components/cart-panel/index"
+  },
+  "enablePullDownRefresh": true
+}

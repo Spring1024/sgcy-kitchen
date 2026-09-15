@@ -1,0 +1,23 @@
+{
+  "description": "sgcy-kitchen 点餐小程序",
+  "appid": "wx3798d617f2e0bc80",
+  "compileType": "miniprogram",
+  "libVersion": "3.4.0",
+  "projectname": "sgcy-kitchen",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "miniprogramRoot": "miniprogram/",
+  "setting": {
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": false,
+    "coverView": true
+  },
+  "packOptions": {
+    "ignore": [
+      { "type": "folder", "value": "src" },
+      { "type": "file", "value": "CLAUDE.md" },
+      { "type": "file", "value": "README.md" }
+    ]
+  }
+}

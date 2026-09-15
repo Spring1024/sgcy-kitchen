@@ -1,0 +1,96 @@
+<view class="admin-container">
+  <view class="admin-header">
+    <view class="admin-title">菜品管理</view>
+    <view class="admin-sub">在售 {{onlineCount}} / 共 {{items.length}} 道</view>
+  </view>
+
+  <view class="page">
+    <view class="search-box">
+      <input class="search-input" placeholder="搜索菜品名称或分类" value="{{query}}" bindinput="onSearch" />
+    </view>
+
+    <view class="add-btn" bindtap="onAdd">＋ 新增菜品</view>
+
+    <view class="dish" wx:for="{{filtered}}" wx:key="_id">
+      <image class="dish-img" src="{{item.image}}" mode="aspectFill" />
+      <view class="dish-info">
+        <view class="dish-name">
+          {{item.name}}
+          <text wx:if="{{!item.online}}" class="off-badge">已下架</text>
+        </view>
+        <view class="dish-meta">{{item.category}} · 库存 {{item.stock}} · 售 {{item.sold}}</view>
+        <view class="dish-price">¥{{item.price}}</view>
+      </view>
+      <view class="dish-actions">
+        <view class="act-btn" catchtap="onEdit" data-item="{{item}}">✏️</view>
+        <view class="act-btn" catchtap="onToggle" data-id="{{item._id}}" data-online="{{item.online}}">
+          {{item.online ? '⏸' : '▶️'}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 编辑/新增弹窗 -->
+  <view wx:if="{{showForm}}" class="modal-mask" bindtap="closeForm">
+    <view class="form-sheet" catchtap="noop">
+      <view class="form-head">
+        <text class="form-title">{{form._id ? '编辑菜品' : '新增菜品'}}</text>
+        <text class="form-close" catchtap="closeForm">✕</text>
+      </view>
+      <scroll-view scroll-y class="form-body scroll-hide">
+        <view class="field">
+          <text class="field-label">菜品名称</text>
+          <input class="field-input" value="{{form.name}}" data-field="name" bindinput="onField" placeholder="如：麻辣香锅" />
+        </view>
+        <view class="field">
+          <text class="field-label">分类</text>
+          <view class="cat-row">
+            <view
+              wx:for="{{categories}}" wx:key="*this"
+              class="cat-chip {{form.category === item ? 'active' : ''}}"
+              data-cat="{{item}}" bindtap="onCatSelect"
+            >{{item}}</view>
+          </view>
+        </view>
+        <view class="field-row">
+          <view class="field half">
+            <text class="field-label">价格 (¥)</text>
+            <input class="field-input" type="digit" value="{{form.price}}" data-field="price" bindinput="onField" />
+          </view>
+          <view class="field half">
+            <text class="field-label">库存</text>
+            <input class="field-input" type="number" value="{{form.stock}}" data-field="stock" bindinput="onField" />
+          </view>
+        </view>
+        <view class="field">
+          <text class="field-label">菜品图片</text>
+          <view class="img-pick" bindtap="onPickImage">
+            <image wx:if="{{form.image}}" class="img-preview" src="{{form.image}}" mode="aspectFill" />
+            <text wx:else class="img-placeholder">＋ 选择图片</text>
+          </view>
+        </view>
+        <view class="field">
+          <text class="field-label">描述</text>
+          <textarea class="field-input textarea" value="{{form.desc}}" data-field="desc" bindinput="onField" placeholder="菜品描述" />
+        </view>
+        <view class="field">
+          <text class="field-label">标签（可选）</text>
+          <input class="field-input" value="{{form.tag}}" data-field="tag" bindinput="onField" placeholder="如：招牌 / 人气" />
+        </view>
+        <view class="field">
+          <text class="field-label">规格配置（JSON，可选）</text>
+          <textarea class="field-input textarea" value="{{form.specsText}}" data-field="specsText" bindinput="onField"
+            placeholder='[{"label":"份量","options":["标准份","大份 +¥6"]}]' />
+        </view>
+        <view class="submit-btn" bindtap="onSave">{{form._id ? '保存修改' : '创建菜品'}}</view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 商家端 tab -->
+  <view class="admin-tabbar">
+    <view class="atab active">🍜<text>菜品</text></view>
+    <view class="atab" bindtap="goPage" data-url="/pages/admin/orders/index">📋<text>订单</text></view>
+    <view class="atab" bindtap="goPage" data-url="/pages/admin/profile/index">👤<text>我的</text></view>
+  </view>
+</view>

@@ -1,0 +1,4 @@
+{
+  "desc": "sitemap for sgcy-kitchen",
+  "rules": [{ "action": "allow", "page": "*" }]
+}

@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/order/index",
+    "pages/detail/index",
+    "pages/checkout/index",
+    "pages/orders/index",
+    "pages/order-detail/index",
+    "pages/profile/index",
+    "pages/admin/menu/index",
+    "pages/admin/orders/index",
+    "pages/admin/order-detail/index",
+    "pages/admin/profile/index"
+  ],
+  "window": {
+    "backgroundColor": "#FFF8F0",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFF8F0",
+    "navigationBarTitleText": "味觉食堂",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#9C8E86",
+    "selectedColor": "#E85D04",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/order/index",   "text": "点餐" },
+      { "pagePath": "pages/orders/index",  "text": "订单" },
+      { "pagePath": "pages/profile/index", "text": "我的" }
+    ]
+  },
+  "cloud": true,
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

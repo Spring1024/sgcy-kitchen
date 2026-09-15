@@ -1,0 +1,63 @@
+/* 设计 token：用户端浅色暖调 */
+page {
+  --color-bg: #FFF8F0;
+  --color-text: #370617;
+  --color-accent: #E85D04;
+  --color-green: #606C38;
+  --color-admin-bg: #FAF3EC;
+  --color-admin-text: #1B1A16;
+  --color-teal: #2A9D8F;
+  --color-yellow: #FFB703;
+  --color-gold: #F4A261;
+
+  background-color: var(--color-bg);
+  font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  color: var(--color-text);
+  font-size: 28rpx;
+}
+
+.container { min-height: 100vh; box-sizing: border-box; }
+
+/* 通用卡片 */
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  border: 1rpx solid rgba(55, 6, 23, 0.05);
+  padding: 32rpx;
+}
+
+/* 主按钮 */
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: 24rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-primary[disabled] {
+  background: rgba(55, 6, 23, 0.25);
+  color: rgba(255,255,255,0.7);
+}
+.btn-dark {
+  background: var(--color-text);
+  color: #fff;
+  border-radius: 24rpx;
+}
+.btn-ghost {
+  background: rgba(55, 6, 23, 0.05);
+  color: rgba(55, 6, 23, 0.5);
+  border-radius: 16rpx;
+}
+
+/* 文字 */
+.text-accent { color: var(--color-accent); }
+.text-muted { color: rgba(55, 6, 23, 0.5); }
+.text-faint { color: rgba(55, 6, 23, 0.35); }
+.text-bold { font-weight: bold; }
+.font-serif { font-weight: bold; }
+
+/* 隐藏滚动条 */
+.scroll-hide::-webkit-scrollbar { display: none; }
+.scroll-hide { scrollbar-width: none; }

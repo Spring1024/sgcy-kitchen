@@ -1,0 +1,36 @@
+<view wx:if="{{show}}">
+  <view class="mask" bindtap="onClose"></view>
+  <view class="panel">
+    <view class="panel-header">
+      <view class="panel-title">🛒 购物车 <text class="panel-sub">{{items.length}} 种商品</text></view>
+      <view class="panel-actions">
+        <view wx:if="{{items.length > 0}}" class="clear-btn" bindtap="onClear">清空</view>
+        <view class="close-btn" bindtap="onClose">✕</view>
+      </view>
+    </view>
+
+    <scroll-view scroll-y class="panel-body scroll-hide">
+      <view wx:if="{{items.length === 0}}" class="panel-empty">购物车还是空的</view>
+      <view class="cart-item" wx:for="{{items}}" wx:key="key">
+        <image class="cart-img" src="{{item.image}}" mode="aspectFill" />
+        <view class="cart-info">
+          <view class="cart-name">{{item.name}}</view>
+          <view wx:if="{{item.specText}}" class="cart-spec">{{item.specText}}</view>
+          <view class="cart-price">¥{{item.price}}</view>
+        </view>
+        <view class="qty-ctrl">
+          <view class="qty-btn" catchtap="onMinus" data-key="{{item.key}}">−</view>
+          <text class="qty-num">{{item.quantity}}</text>
+          <view class="qty-btn qty-plus" catchtap="onPlus" data-key="{{item.key}}">＋</view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="panel-footer">
+      <view class="checkout-btn {{items.length === 0 ? 'checkout-disabled' : ''}}" bindtap="onCheckout">
+        <text>合计 ¥{{totalPrice}}</text>
+        <text>去结算 →</text>
+      </view>
+    </view>
+  </view>
+</view>

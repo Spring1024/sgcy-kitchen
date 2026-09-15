@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="profile-head">
+    <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <image class="avatar" src="{{user.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill" />
+    </button>
+    <view class="profile-info">
+      <input class="nickname-input" type="nickname" placeholder="点击设置昵称" value="{{user.nickName}}" bindblur="onNicknameBlur" />
+      <view class="uid">{{user._id ? 'ID: ' + user._id.slice(0, 8) : '未登录'}}</view>
+      <view class="stats">
+        <view class="stat"><text class="stat-num">{{orderCount}}</text><text class="stat-label">订单</text></view>
+        <view class="stat"><text class="stat-num">{{user.points || 0}}</text><text class="stat-label">积分</text></view>
+        <view class="stat"><text class="stat-num">Lv.{{user.level || 1}}</text><text class="stat-label">会员</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-list">
+    <view class="menu-item" bindtap="todo" data-label="我的收藏">
+      <text class="menu-icon">❤️</text>
+      <view class="menu-body"><view class="menu-label">我的收藏</view></view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="todo" data-label="我的评价">
+      <text class="menu-icon">⭐</text>
+      <view class="menu-body"><view class="menu-label">我的评价</view></view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="todo" data-label="设置">
+      <text class="menu-icon">⚙️</text>
+      <view class="menu-body"><view class="menu-label">设置</view></view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item admin-entry" wx:if="{{isAdmin}}" bindtap="goAdmin">
+      <text class="menu-icon">🏪</text>
+      <view class="menu-body">
+        <view class="menu-label" style="color:#fff">商家端</view>
+        <view class="menu-desc">切换至店铺管理后台</view>
+      </view>
+      <text class="menu-arrow" style="color:rgba(247,225,215,0.4)">›</text>
+    </view>
+  </view>
+</view>

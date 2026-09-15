@@ -1,0 +1,31 @@
+.container { padding: 24rpx 32rpx; }
+.head { display: flex; justify-content: space-between; align-items: center; }
+.order-id { font-size: 30rpx; font-weight: bold; }
+.status-badge { font-size: 24rpx; padding: 8rpx 20rpx; border-radius: 999rpx; }
+.status-pending { background: rgba(232,93,4,0.1); color: #E85D04; }
+.status-cooking { background: rgba(255,183,3,0.15); color: #FFB703; }
+.status-done { background: rgba(42,157,143,0.1); color: #2A9D8F; }
+.status-cancelled { background: rgba(55,6,23,0.08); color: rgba(55,6,23,0.4); }
+.card { margin-top: 24rpx; }
+.row { display: flex; justify-content: space-between; font-size: 26rpx; padding: 10rpx 0; }
+.label { color: rgba(55,6,23,0.5); }
+.card-title { font-size: 28rpx; font-weight: bold; margin-bottom: 20rpx; }
+.dish { display: flex; align-items: center; gap: 20rpx; margin-bottom: 20rpx; }
+.dish-img { width: 96rpx; height: 96rpx; border-radius: 16rpx; }
+.dish-info { flex: 1; min-width: 0; }
+.dish-name { font-size: 26rpx; font-weight: bold; }
+.dish-spec { font-size: 20rpx; color: rgba(55,6,23,0.45); margin-top: 4rpx; }
+.dish-right { text-align: right; }
+.dish-price { color: #E85D04; font-weight: bold; }
+.dish-qty { font-size: 22rpx; color: rgba(55,6,23,0.5); }
+.price-row { display: flex; justify-content: space-between; font-size: 26rpx; padding: 8rpx 0; }
+.price-row.total { border-top: 1rpx solid rgba(55,6,23,0.08); margin-top: 12rpx; padding-top: 20rpx; }
+.big { font-size: 34rpx; }
+.points-tip { font-size: 22rpx; color: #606C38; margin-top: 12rpx; }
+.bottom-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+  background: rgba(255,255,255,0.95); padding: 20rpx 32rpx 48rpx;
+  border-top: 1rpx solid rgba(55,6,23,0.05);
+}
+.cancel-btn { text-align: center; padding: 24rpx; font-size: 28rpx; color: #e5484d; }
+.loading { text-align: center; padding-top: 300rpx; color: rgba(55,6,23,0.4); }

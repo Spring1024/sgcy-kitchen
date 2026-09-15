@@ -1,0 +1,71 @@
+<view class="container page-body">
+  <!-- 就餐方式 -->
+  <view class="card">
+    <view class="type-tabs">
+      <view class="type-tab {{eatType === 'today' ? 'active' : ''}}" bindtap="setType" data-type="today">🕐 当天</view>
+      <view class="type-tab {{eatType === 'reserve' ? 'active' : ''}}" bindtap="setType" data-type="reserve">📅 预约</view>
+    </view>
+
+    <view wx:if="{{eatType === 'reserve'}}" class="day-row">
+      <view
+        wx:for="{{weekDates}}" wx:key="offset"
+        class="day-item {{reserveDay === item.offset ? 'active' : ''}}"
+        bindtap="selectDay" data-offset="{{item.offset}}"
+      >
+        <view class="day-week">{{item.isToday ? '今天' : item.week}}</view>
+        <view class="day-date">{{item.date}}</view>
+      </view>
+    </view>
+
+    <view class="time-row">
+      <picker mode="selector" range="{{hours}}" value="{{hourIndex}}" bindchange="onHourChange">
+        <view class="time-pick">{{hour}}</view>
+      </picker>
+      <text class="time-sep">:</text>
+      <picker mode="selector" range="{{minutes}}" value="{{minuteIndex}}" bindchange="onMinuteChange">
+        <view class="time-pick">{{minute}}</view>
+      </picker>
+    </view>
+    <view class="time-summary">到店时间：<text class="text-bold">{{timeLabel}}</text></view>
+  </view>
+
+  <!-- 商品明细 -->
+  <view class="card">
+    <view class="shop-line">🏪 味觉食堂 <text class="tag-eat">到店食用</text></view>
+    <view class="item" wx:for="{{cart}}" wx:key="key">
+      <image class="item-img" src="{{item.image}}" mode="aspectFill" />
+      <view class="item-info">
+        <view class="item-name">{{item.name}}</view>
+        <view wx:if="{{item.specText}}" class="item-spec">{{item.specText}}</view>
+        <view class="item-price">¥{{item.price}}</view>
+      </view>
+      <text class="item-qty">×{{item.quantity}}</text>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="card">
+    <view class="card-title">订单备注</view>
+    <textarea class="remark" placeholder="口味、偏好等要求（选填）" value="{{remark}}" bindinput="onRemark" />
+  </view>
+
+  <!-- 价格明细 -->
+  <view class="card">
+    <view class="price-row"><text class="text-muted">商品小计</text><text>¥{{subtotal}}</text></view>
+    <view class="price-row"><text class="text-muted">打包费</text><text>¥{{packagingFee}}</text></view>
+    <view class="price-row total-row"><text class="text-bold">合计</text><text class="text-accent total-num">¥{{total}}</text></view>
+    <view class="points-tip">完成本单预计可获得 {{pointsEarned}} 积分</view>
+  </view>
+
+  <view style="height: 180rpx"></view>
+
+  <view class="bottom-bar">
+    <view class="total-box">
+      <text class="text-muted" style="font-size:22rpx">应付</text>
+      <view class="text-accent total-big">¥{{total}}</view>
+    </view>
+    <view class="btn-primary submit-btn {{submitting ? 'disabled' : ''}}" bindtap="submit">
+      {{submitting ? '提交中...' : '提交订单'}}
+    </view>
+  </view>
+</view>

@@ -1,0 +1,116 @@
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <view class="header-top">
+      <view>
+        <view class="shop-name">
+          味觉食堂
+          <text class="badge {{shopConfig.isOpen ? 'badge-open' : 'badge-closed'}}">
+            {{shopConfig.isOpen ? '营业中' : '已打烊'}}
+          </text>
+        </view>
+        <view class="shop-sub">🕐 {{shopConfig.openTime || '10:00 - 22:00'}}</view>
+      </view>
+    </view>
+    <!-- 搜索 -->
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索菜品..." value="{{searchQuery}}" bindinput="onSearch" />
+    </view>
+  </view>
+
+  <!-- 主体：左分类 + 右菜品 -->
+  <view class="body">
+    <scroll-view class="sidebar scroll-hide" scroll-y>
+      <view
+        wx:for="{{categories}}"
+        wx:key="name"
+        class="side-item {{activeCategory === item.name ? 'side-active' : ''}}"
+        bindtap="onSelectCategory"
+        data-name="{{item.name}}"
+      >
+        <text class="side-icon">{{item.icon}}</text>
+        <text class="side-text">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <scroll-view class="menu-list scroll-hide" scroll-y>
+      <view class="cat-title">{{activeCategory}}</view>
+      <view wx:if="{{filteredItems.length === 0}}" class="empty">没有找到相关菜品</view>
+      <view class="grid">
+        <view class="dish-card" wx:for="{{filteredItems}}" wx:key="_id" bindtap="goDetail" data-id="{{item._id}}">
+          <image class="dish-img" src="{{item.image}}" mode="aspectFill" lazy-load />
+          <view wx:if="{{item.tag}}" class="dish-tag">{{item.tag}}</view>
+          <view class="dish-body">
+            <view class="dish-name">{{item.name}}</view>
+            <view class="dish-desc">{{item.desc}}</view>
+            <view class="dish-meta">⭐ {{item.rating || '4.5'}} · 月售{{item.sold || 0}}</view>
+            <view class="dish-footer">
+              <view class="dish-price"><text class="yen">¥</text>{{item.price}}</view>
+              <view class="add-btn" catchtap="onAdd" data-item="{{item}}">＋</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style="height: 220rpx"></view>
+    </scroll-view>
+  </view>
+
+  <!-- 悬浮购物车 -->
+  <view wx:if="{{totalCount > 0}}" class="cart-bar" bindtap="toggleCart">
+    <view class="cart-left">
+      <view class="cart-icon">🛒<text class="cart-count">{{totalCount}}</text></view>
+      <text>查看购物车</text>
+    </view>
+    <view class="cart-total">¥{{totalPrice}}</view>
+  </view>
+
+  <cart-panel
+    show="{{showCart}}"
+    items="{{cart}}"
+    total-price="{{totalPrice}}"
+    bind:close="toggleCart"
+    bind:update="onCartUpdate"
+    bind:checkout="goCheckout"
+  />
+
+  <!-- 规格弹窗 -->
+  <view wx:if="{{specItem}}" class="modal-mask" bindtap="closeSpec">
+    <view class="modal-sheet" catchtap="noop">
+      <view class="spec-header">
+        <image class="spec-img" src="{{specItem.image}}" mode="aspectFill" />
+        <view class="spec-info">
+          <view class="spec-name">{{specItem.name}}</view>
+          <view class="spec-desc">{{specItem.desc}}</view>
+        </view>
+        <view class="spec-close" catchtap="closeSpec">✕</view>
+      </view>
+      <scroll-view scroll-y class="spec-body scroll-hide">
+        <view wx:for="{{specItem.specs}}" wx:key="label" class="spec-group">
+          <view class="spec-label">{{item.label}}</view>
+          <view class="spec-options">
+            <view
+              wx:for="{{item.options}}"
+              wx:for-item="opt"
+              wx:key="*this"
+              class="spec-opt {{selectedSpecs[item.label] === opt ? 'spec-opt-active' : ''}}"
+              catchtap="selectSpec"
+              data-label="{{item.label}}"
+              data-value="{{opt}}"
+            >{{opt}}</view>
+          </view>
+        </view>
+      </scroll-view>
+      <view class="spec-footer">
+        <view class="qty-ctrl">
+          <view class="qty-btn" catchtap="specQtyMinus">−</view>
+          <text class="qty-num">{{specQty}}</text>
+          <view class="qty-btn qty-plus" catchtap="specQtyPlus">＋</view>
+        </view>
+        <view class="btn-primary spec-confirm" catchtap="confirmSpec">
+          加入 ¥{{specTotal}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
