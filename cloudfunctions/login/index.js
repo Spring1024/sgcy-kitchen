@@ -7,13 +7,16 @@ exports.main = async (event) => {
 
   switch (action) {
     case 'login': {
-      // 方式一：直接用云函数上下文自带的 OPENID（推荐，无需 AppSecret）
-      // 小程序端调用 wx.cloud.callFunction 时，云函数自动能获取用户 openid
-      const { OPENID } = cloud.getWXContext();
-      const openid = OPENID;
+      // 优先从小程序上下文获取 openid
+      let openid = cloud.getWXContext().OPENID;
+
+      // 云端测试时允许传入模拟 openid
+      if (!openid && event.testOpenid) {
+        openid = event.testOpenid;
+      }
 
       if (!openid) {
-        return { error: '无法获取 openid' };
+        return { error: '无法获取 openid，请在小程序端调用或传入 testOpenid 测试' };
       }
 
       const res = await db.collection('users').where({ openid }).get();
