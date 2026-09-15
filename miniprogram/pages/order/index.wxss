@@ -80,7 +80,7 @@
 }
 
 .cart-bar {
-  position: fixed; left: 32rpx; right: 32rpx; bottom: calc(12rpx + var(--safe-bottom)); z-index: 40;
+  position: fixed; left: 32rpx; right: 32rpx; bottom: 12rpx; z-index: 40;
   background: var(--color-text); color: #fff;
   border-radius: 28rpx; padding: 28rpx 36rpx;
   display: flex; justify-content: space-between; align-items: center;

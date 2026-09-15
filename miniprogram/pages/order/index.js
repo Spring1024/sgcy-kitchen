@@ -1,7 +1,6 @@
 const api = require('../../utils/api');
 const auth = require('../../utils/auth');
 const storage = require('../../utils/storage');
-const { getSystem } = require('../../utils/system');
 
 const CATEGORY_ICONS = {
   '招牌推荐': '🔥', '粉面系列': '🍜', '米饭套餐': '🍚',
@@ -27,19 +26,6 @@ Page({
   },
 
   async onLoad() {
-    // 动态计算内容区域高度并注入 CSS 变量
-    const { windowHeight, windowWidth, safeAreaBottom } = getSystem();
-    // header 实际高度 ≈ 250rpx，按当前设备宽度换算为 px
-    const headerPx = Math.round(250 * windowWidth / 750);
-    const contentHeight = windowHeight - headerPx;
-    wx.createSelectorQuery().select(':root').node(res => {
-      const style = res ? res.style : null;
-      if (style) {
-        style.setProperty('--content-height', `${contentHeight}px`);
-        style.setProperty('--safe-bottom', `${safeAreaBottom}px`);
-      }
-    }).exec();
-
     await auth.ensureLogin();
     this.loadData();
   },
