@@ -11,7 +11,7 @@
     <view wx:if="{{orders.length === 0}}" class="empty">暂无相关订单</view>
     <view class="order-card" wx:for="{{orders}}" wx:key="orderId" bindtap="goDetail" data-id="{{item.orderId}}">
       <view class="order-head">
-        <view class="order-shop">🏪 味觉食堂
+        <view class="order-shop">🏪 冒饭局
           <text class="order-type">{{item.type === 'today' ? '当天' : '预约'}}</text>
         </view>
         <text class="status-{{item.status}}">{{item.statusText}}</text>

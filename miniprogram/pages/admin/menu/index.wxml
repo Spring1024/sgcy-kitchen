@@ -1,4 +1,12 @@
 <view class="admin-container">
+  <wxs module="util">
+module.exports.isSpecAdded = function(specs, label) {
+  for (var i = 0; i < specs.length; i++) {
+    if (specs[i].label === label) return true;
+  }
+  return false;
+};
+</wxs>
   <view class="admin-header">
     <view class="admin-title">菜品管理</view>
     <view class="admin-sub">在售 {{onlineCount}} / 共 {{items.length}} 道</view>
@@ -23,8 +31,8 @@
       </view>
       <view class="dish-actions">
         <view class="act-btn" catchtap="onEdit" data-item="{{item}}">✏️</view>
-        <view class="act-btn" catchtap="onToggle" data-id="{{item._id}}" data-online="{{item.online}}">
-          {{item.online ? '⏸' : '▶️'}}
+        <view class="switch {{item.online ? 'switch-on' : ''}}" catchtap="onToggle" data-id="{{item._id}}" data-online="{{item.online}}">
+          <view class="switch-dot"></view>
         </view>
       </view>
     </view>
@@ -77,11 +85,49 @@
           <text class="field-label">标签（可选）</text>
           <input class="field-input" value="{{form.tag}}" data-field="tag" bindinput="onField" placeholder="如：招牌 / 人气" />
         </view>
-        <view class="field">
-          <text class="field-label">规格配置（JSON，可选）</text>
-          <textarea class="field-input textarea" value="{{form.specsText}}" data-field="specsText" bindinput="onField"
-            placeholder='[{"label":"份量","options":["标准份","大份 +¥6"]}]' />
+
+        <!-- 自定义配置项 -->
+        <view class="field spec-field">
+          <view class="spec-title">自定义配置项</view>
+          <view class="spec-subtitle">如辣度、甜度、酸度等，可添加维度与选项值</view>
+
+          <!-- 快捷添加 -->
+          <view class="quick-row">
+            <view
+              wx:for="{{quickOptions}}" wx:key="*this"
+              class="quick-chip {{util.isSpecAdded(form.specs, item) ? 'added' : ''}}"
+              catchtap="onQuickAdd" data-name="{{item}}"
+            >{{item}}</view>
+          </view>
+
+          <!-- 已有配置项 -->
+          <view class="spec-item" wx:for="{{form.specs}}" wx:key="label" wx:for-index="sIdx">
+            <view class="spec-item-head">
+              <text class="spec-item-name">{{item.label}}</text>
+              <view class="spec-item-del" catchtap="onSpecRemove" data-idx="{{sIdx}}">🗑</view>
+            </view>
+            <view class="spec-values">
+              <view class="spec-value-chip" wx:for="{{item.options}}" wx:for-item="opt" wx:key="*this" wx:for-index="oIdx">
+                {{opt}}
+                <text class="chip-x" catchtap="onOptionRemove" data-sidx="{{sIdx}}" data-oidx="{{oIdx}}">✕</text>
+              </view>
+              <view wx:if="{{item.options.length === 0}}" class="spec-value-empty">暂无选项值，请在下方添加</view>
+            </view>
+            <view class="spec-add-row">
+              <input class="spec-add-input" placeholder="添加{{item.label}}选项值"
+                value="{{newValues[sIdx]}}" data-idx="{{sIdx}}" bindinput="onNewValueInput" />
+              <view class="spec-add-btn" catchtap="onOptionAdd" data-idx="{{sIdx}}">＋</view>
+            </view>
+          </view>
+
+          <!-- 新增配置项维度 -->
+          <view class="spec-new-row">
+            <input class="spec-new-input" placeholder="自定义配置项名称，如：份量"
+              value="{{newSpecName}}" bindinput="onNewSpecName" />
+            <view class="spec-new-btn" catchtap="onSpecAdd">＋ 添加</view>
+          </view>
         </view>
+
         <view class="submit-btn" bindtap="onSave">{{form._id ? '保存修改' : '创建菜品'}}</view>
       </scroll-view>
     </view>

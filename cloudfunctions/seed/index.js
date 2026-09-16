@@ -3,7 +3,7 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 
 exports.main = async () => {
-  const results = { shopConfig: false, menus: 0, error: null };
+  const results = { shopConfig: false, categories: 0, menus: 0, error: null };
 
   try {
     // 1. shop_config 初始化
@@ -24,7 +24,25 @@ exports.main = async () => {
       results.shopConfig = true;
     }
 
-    // 2. 示例菜品
+    // 2. 分类初始化
+    const catCnt = await db.collection('categories').count();
+    if (catCnt.total === 0) {
+      const cats = [
+        { name: '招牌推荐', icon: '🔥', sort: 1 },
+        { name: '粉面系列', icon: '🍜', sort: 2 },
+        { name: '米饭套餐', icon: '🍚', sort: 3 },
+        { name: '小吃甜品', icon: '🥟', sort: 4 },
+        { name: '饮品', icon: '🥤', sort: 5 },
+      ];
+      for (const c of cats) {
+        await db.collection('categories').add({
+          data: { ...c, enabled: true, createdAt: db.serverDate() },
+        });
+        results.categories++;
+      }
+    }
+
+    // 3. 示例菜品
     const cnt = await db.collection('menus').count();
     if (cnt.total === 0) {
       const samples = [

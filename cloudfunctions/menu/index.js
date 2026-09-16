@@ -2,6 +2,26 @@ const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 
+// 把 cloud:// fileID 批量转成临时 HTTP URL，供 <image> 直接显示
+async function resolveImages(dishes) {
+  if (!dishes) return dishes;
+  const list = Array.isArray(dishes) ? dishes : [dishes];
+  const fileList = list
+    .map(d => d.image)
+    .filter(img => img && img.startsWith('cloud://'));
+  if (fileList.length === 0) return dishes;
+
+  const res = await cloud.getTempFileURL({ fileList });
+  const map = {};
+  (res.fileList || []).forEach(f => { map[f.fileID] = f.tempFileURL; });
+
+  const patch = d => {
+    if (d.image && map[d.image]) d.image = map[d.image];
+    return d;
+  };
+  return Array.isArray(dishes) ? list.map(patch) : patch(list[0]);
+}
+
 async function requireAdmin(openid) {
   const res = await db.collection('users').where({ openid }).get();
   if (!res.data[0] || res.data[0].role !== 'admin') {
@@ -20,18 +40,34 @@ exports.main = async (event) => {
         .orderBy('createdAt', 'asc')
         .limit(100)
         .get();
+      const dishes = await resolveImages(res.data);
+      // 附带启用的分类列表
+      const cats = await db.collection('categories')
+        .where({ enabled: true })
+        .orderBy('sort', 'asc')
+        .limit(50)
+        .get();
+      return { dishes, categories: cats.data };
+    }
+
+    case 'categoryList': {
+      const res = await db.collection('categories')
+        .where({ enabled: true })
+        .orderBy('sort', 'asc')
+        .limit(50)
+        .get();
       return res.data;
     }
 
     case 'detail': {
       const res = await db.collection('menus').doc(event.id).get();
-      return res.data;
+      return await resolveImages(res.data);
     }
 
     case 'adminList': {
       await requireAdmin(OPENID);
       const res = await db.collection('menus').orderBy('createdAt', 'asc').limit(200).get();
-      return res.data;
+      return await resolveImages(res.data);
     }
 
     case 'save': {

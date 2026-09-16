@@ -18,6 +18,7 @@ module.exports = {
   menuList: () => call('menu', 'list'),
   menuDetail: (id) => call('menu', 'detail', { id }),
   menuAdminList: () => call('menu', 'adminList'),
+  menuCategoryList: () => call('menu', 'categoryList'),
   menuSave: (dish) => call('menu', 'save', { dish }),
   menuToggle: (id, online) => call('menu', 'toggle', { id, online }),
   menuDelete: (id) => call('menu', 'delete', { id }),
@@ -33,4 +34,9 @@ module.exports = {
   // shop
   shopConfig: () => call('shop', 'getConfig'),
   shopToggle: (isOpen) => call('shop', 'toggleOpen', { isOpen }),
+
+  // review
+  reviewCreate: (payload) => call('review', 'create', payload),
+  reviewMyList: () => call('review', 'myList'),
+  reviewList: (params) => call('review', 'list', params),
 };

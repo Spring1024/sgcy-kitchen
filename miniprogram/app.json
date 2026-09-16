@@ -5,6 +5,7 @@
     "pages/checkout/index",
     "pages/orders/index",
     "pages/order-detail/index",
+    "pages/reviews/index",
     "pages/profile/index",
     "pages/admin/menu/index",
     "pages/admin/orders/index",
@@ -15,7 +16,7 @@
     "backgroundColor": "#FFF8F0",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FFF8F0",
-    "navigationBarTitleText": "味觉食堂",
+    "navigationBarTitleText": "冒饭局",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

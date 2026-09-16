@@ -2,12 +2,6 @@ const api = require('../../utils/api');
 const auth = require('../../utils/auth');
 const storage = require('../../utils/storage');
 
-const CATEGORY_ICONS = {
-  '招牌推荐': '🔥', '粉面系列': '🍜', '米饭套餐': '🍚',
-  '小吃甜品': '🥟', '饮品': '🥤', '招牌主食': '🍜',
-  '热菜': '🍲', '汤品': '🍲', '甜品': '🍰',
-};
-
 Page({
   data: {
     shopConfig: {},
@@ -27,12 +21,17 @@ Page({
 
   async onLoad() {
     await auth.ensureLogin();
-    this.loadData();
+    await this.loadData();
+    this._loaded = true;
   },
 
   onShow() {
     const cart = storage.getCart();
     this.setData({ cart }, () => this.recalcCart());
+    // 首次 onLoad 已加载过数据，此处跳过重复请求
+    if (this._loaded) {
+      this.loadData();
+    }
   },
 
   onPullDownRefresh() {
@@ -41,16 +40,25 @@ Page({
 
   async loadData() {
     try {
-      const [menus, shopConfig] = await Promise.all([api.menuList(), api.shopConfig()]);
+      const [result, shopConfig] = await Promise.all([api.menuList(), api.shopConfig()]);
+      const menus = result.dishes || result;  // 兼容旧返回格式
+      const catList = result.categories || [];
       const grouped = {};
       menus.forEach(m => {
         const cat = m.category || '其他';
         if (!grouped[cat]) grouped[cat] = [];
         grouped[cat].push(m);
       });
-      const categories = Object.keys(grouped).map(name => ({
-        name, icon: CATEGORY_ICONS[name] || '🍽', items: grouped[name],
-      }));
+      // 按数据库分类排序；分类下没菜品的也保留（显示空分类可选，这里过滤掉空分类）
+      let categories = catList
+        .filter(c => grouped[c.name])
+        .map(c => ({ name: c.name, icon: c.icon || '🍽', items: grouped[c.name] }));
+      // 数据库中未登记但菜品里存在的分类，追加到末尾
+      Object.keys(grouped).forEach(name => {
+        if (!catList.some(c => c.name === name)) {
+          categories.push({ name, icon: '🍽', items: grouped[name] });
+        }
+      });
       this.setData({
         categories,
         shopConfig: shopConfig || {},

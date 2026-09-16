@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "味觉食堂",
+  "navigationBarTitleText": "冒饭局",
   "usingComponents": {
     "cart-panel": "/components/cart-panel/index"
   },

@@ -47,6 +47,10 @@ Page({
     wx.showToast({ title: `${e.currentTarget.dataset.label} 开发中`, icon: 'none' });
   },
 
+  goReview() {
+    wx.navigateTo({ url: '/pages/reviews/index' });
+  },
+
   goAdmin() {
     wx.navigateTo({ url: '/pages/admin/profile/index' });
   },

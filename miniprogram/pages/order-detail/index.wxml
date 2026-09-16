@@ -29,6 +29,47 @@
     <view class="points-tip" wx:if="{{order.pointsEarned > 0}}">本单{{order.status === 'done' ? '已获得' : '完成后可获得'}} {{order.pointsEarned}} 积分</view>
   </view>
 
+  <!-- 评价区域：仅已完成订单显示 -->
+  <view wx:if="{{order.status === 'done'}}" class="card review-card">
+    <!-- 已评价：只读展示 -->
+    <block wx:if="{{reviewed}}">
+      <view class="card-title">我的评价</view>
+      <view class="reviewed-item" wx:for="{{existingReviews}}" wx:key="_id">
+        <view class="reviewed-head">
+          <view class="review-dish-name">{{item.dishName}}</view>
+          <view class="stars">
+            <text wx:for="{{5}}" wx:for-item="s" wx:key="*this"
+              class="star {{item.rating >= (index + 1) ? 'star-active' : ''}}"
+            >★</text>
+          </view>
+        </view>
+        <view wx:if="{{item.content}}" class="reviewed-content">{{item.content}}</view>
+      </view>
+      <view class="reviewed-tip">已完成评价，每个订单仅可评价一次</view>
+    </block>
+
+    <!-- 未评价：提交表单，每个菜品独立评价 -->
+    <block wx:else>
+      <view class="card-title">评价订单</view>
+      <view class="review-form-item" wx:for="{{formReviews}}" wx:key="name" wx:for-index="fIdx">
+        <view class="review-item-head">
+          <view class="review-dish-name">{{item.name}}</view>
+          <view class="stars">
+            <text wx:for="{{5}}" wx:for-item="s" wx:key="*this"
+              class="star {{item.rating >= (index + 1) ? 'star-active' : ''}}"
+              catchtap="onRate" data-idx="{{fIdx}}" data-score="{{index + 1}}"
+            >★</text>
+          </view>
+        </view>
+        <textarea class="review-input" placeholder="说说这道菜味道如何？（选填）"
+          value="{{item.content}}" data-idx="{{fIdx}}" bindinput="onContentInput" />
+      </view>
+      <view class="review-submit {{reviewSubmitting ? 'disabled' : ''}}" bindtap="submitReview">
+        {{reviewSubmitting ? '提交中...' : '提交评价'}}
+      </view>
+    </block>
+  </view>
+
   <view style="height: 160rpx"></view>
 
   <view wx:if="{{order.status === 'pending'}}" class="bottom-bar">
