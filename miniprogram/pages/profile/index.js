@@ -3,6 +3,7 @@ const auth = require('../../utils/auth');
 
 Page({
   data: {
+    loading: true,
     user: {},
     isAdmin: false,
     orderCount: 0,
@@ -16,11 +17,11 @@ Page({
       const orders = await api.orderList({ status: 'all', pageSize: 100 });
       this.setData({ orderCount: (orders || []).length });
     } catch (e) {}
+    this.setData({ loading: false });
   },
 
   async onChooseAvatar(e) {
     const { avatarUrl } = e.detail;
-    // 上传到云存储
     try {
       const cloudPath = `avatars/${Date.now()}.png`;
       const res = await wx.cloud.uploadFile({ cloudPath, filePath: avatarUrl });

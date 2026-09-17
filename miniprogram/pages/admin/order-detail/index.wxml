@@ -1,3 +1,4 @@
+<loading-mask show="{{loading}}" />
 <view class="admin-container" wx:if="{{order}}">
   <view class="admin-header">
     <view class="admin-sub">订单号</view>

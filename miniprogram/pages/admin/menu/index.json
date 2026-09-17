@@ -1,1 +1,2 @@
-{ "navigationBarTitleText": "菜品管理", "navigationBarBackgroundColor": "#1B1A16", "navigationBarTextStyle": "white" }
+{ "navigationBarTitleText": "菜品管理", "navigationBarBackgroundColor": "#1B1A16", "navigationBarTextStyle": "white",
+  "usingComponents": { "loading-mask": "/components/loading-mask/index" } }

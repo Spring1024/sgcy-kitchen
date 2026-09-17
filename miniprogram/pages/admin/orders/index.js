@@ -4,6 +4,7 @@ const STATUS_TEXT = { pending: '待处理', cooking: '备餐中', done: '已完�
 
 Page({
   data: {
+    loading: true,
     tabs: [
       { key: 'all', label: '全部' },
       { key: 'pending', label: '待处理' },
@@ -24,8 +25,9 @@ Page({
     try {
       const list = await api.orderAdminList({});
       const orders = (list || []).map(o => ({ ...o, statusText: STATUS_TEXT[o.status] || o.status }));
-      this.setData({ orders }, () => this.applyFilter());
+      this.setData({ orders, loading: false }, () => this.applyFilter());
     } catch (e) {
+      this.setData({ loading: false });
       wx.showToast({ title: e.message || '加载失败', icon: 'none' });
     }
   },

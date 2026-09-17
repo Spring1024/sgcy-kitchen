@@ -1,1 +1,2 @@
-{ "navigationBarTitleText": "个人中心" }
+{ "navigationBarTitleText": "个人中心",
+  "usingComponents": { "loading-mask": "/components/loading-mask/index" } }

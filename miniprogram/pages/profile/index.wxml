@@ -1,3 +1,4 @@
+<loading-mask show="{{loading}}" text="加载中..." />
 <view class="container">
   <view class="profile-head">
     <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">

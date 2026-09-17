@@ -3,6 +3,7 @@ const storage = require('../../utils/storage');
 
 Page({
   data: {
+    loading: true,
     dish: null,
     selectedSpecs: {},
     quantity: 1,
@@ -10,10 +11,14 @@ Page({
   },
 
   async onLoad(options) {
-    const dish = await api.menuDetail(options.id);
-    const defaults = {};
-    (dish.specs || []).forEach(s => { if (s.options && s.options[0]) defaults[s.label] = s.options[0]; });
-    this.setData({ dish, selectedSpecs: defaults }, () => this.recalc());
+    try {
+      const dish = await api.menuDetail(options.id);
+      const defaults = {};
+      (dish.specs || []).forEach(s => { if (s.options && s.options[0]) defaults[s.label] = s.options[0]; });
+      this.setData({ dish, selectedSpecs: defaults, loading: false }, () => this.recalc());
+    } catch (e) {
+      this.setData({ loading: false });
+    }
   },
 
   selectSpec(e) {

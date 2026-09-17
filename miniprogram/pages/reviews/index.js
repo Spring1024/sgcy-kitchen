@@ -2,7 +2,7 @@ const api = require('../../utils/api');
 const auth = require('../../utils/auth');
 
 Page({
-  data: { reviews: [] },
+  data: { reviews: [], loading: true },
 
   async onShow() {
     await auth.ensureLogin();
@@ -16,9 +16,10 @@ Page({
         ...r,
         timeLabel: r.createdAt ? new Date(r.createdAt).toLocaleDateString() : '',
       }));
-      this.setData({ reviews });
+      this.setData({ reviews, loading: false });
     } catch (e) {
       console.error(e);
+      this.setData({ loading: false });
     }
   },
 

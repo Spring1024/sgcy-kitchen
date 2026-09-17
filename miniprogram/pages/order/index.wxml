@@ -1,3 +1,4 @@
+<loading-mask show="{{loading}}" />
 <view class="container">
   <!-- Header -->
   <view class="header">
@@ -50,7 +51,7 @@
           </view>
         </view>
       </view>
-      <view style="height: 220rpx"></view>
+      <view style="height: 160rpx"></view>
     </scroll-view>
   </view>
 
@@ -61,6 +62,20 @@
       <text>查看购物车</text>
     </view>
     <view class="cart-total">¥{{totalPrice}}</view>
+  </view>
+
+  <!-- 首次进入：头像昵称授权弹窗 -->
+  <view wx:if="{{showAuthModal}}" class="auth-mask">
+    <view class="auth-dialog" catchtap="noop">
+      <image class="auth-avatar-preview" src="{{pendingAvatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+      <button class="auth-avatar-btn" open-type="chooseAvatar" bindchooseavatar="onAuthChooseAvatar">选择头像</button>
+      <input class="auth-nick-input" type="nickname" placeholder="点击输入昵称"
+        value="{{pendingNick}}" bindinput="onAuthNickInput" />
+      <view class="auth-btns">
+        <view class="auth-skip" bindtap="onAuthSkip">暂不设置</view>
+        <view class="auth-confirm" bindtap="onAuthConfirm">完成</view>
+      </view>
+    </view>
   </view>
 
   <cart-panel

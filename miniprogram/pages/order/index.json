@@ -1,7 +1,8 @@
 {
   "navigationBarTitleText": "冒饭局",
   "usingComponents": {
-    "cart-panel": "/components/cart-panel/index"
+    "cart-panel": "/components/cart-panel/index",
+    "loading-mask": "/components/loading-mask/index"
   },
   "enablePullDownRefresh": true
 }

@@ -5,6 +5,7 @@ const STATUS_TEXT = { pending: '待处理', cooking: '备餐中', done: '已完�
 
 Page({
   data: {
+    loading: true,
     tabs: [
       { key: 'all', label: '全部' },
       { key: 'active', label: '进行中' },
@@ -32,9 +33,10 @@ Page({
     try {
       const list = await api.orderList({ status: this.data.filter });
       const orders = (list || []).map(o => ({ ...o, statusText: STATUS_TEXT[o.status] || o.status }));
-      this.setData({ orders });
+      this.setData({ orders, loading: false });
     } catch (e) {
       console.error(e);
+      this.setData({ loading: false });
     }
   },
 

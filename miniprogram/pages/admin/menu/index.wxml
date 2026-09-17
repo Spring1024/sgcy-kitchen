@@ -1,3 +1,4 @@
+<loading-mask show="{{loading}}" />
 <view class="admin-container">
   <wxs module="util">
 module.exports.isSpecAdded = function(specs, label) {

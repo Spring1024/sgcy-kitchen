@@ -1,3 +1,4 @@
+<loading-mask show="{{loading}}" />
 <view class="container">
   <view class="tabs">
     <view

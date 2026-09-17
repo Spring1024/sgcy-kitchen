@@ -1,3 +1,4 @@
+<loading-mask show="{{loading}}" />
 <view class="container" wx:if="{{order}}">
   <view class="head card">
     <view class="order-id">{{order.orderId}}</view>
@@ -76,4 +77,4 @@
     <view class="btn-ghost cancel-btn" bindtap="cancelOrder">取消订单</view>
   </view>
 </view>
-<view wx:else class="loading">加载中...</view>
+<view wx:elif="{{!loading}}" class="loading">订单不存在</view>

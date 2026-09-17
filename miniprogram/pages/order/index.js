@@ -4,6 +4,10 @@ const storage = require('../../utils/storage');
 
 Page({
   data: {
+    loading: true,
+    showAuthModal: false,
+    pendingAvatar: '',
+    pendingNick: '',
     shopConfig: {},
     categories: [],      // [{name, icon, items}]
     activeCategory: '',
@@ -23,6 +27,52 @@ Page({
     await auth.ensureLogin();
     await this.loadData();
     this._loaded = true;
+    // 首次进入：未设置昵称时弹出授权弹窗
+    const user = auth.getUserInfo();
+    const skipKey = 'sgcy_auth_skip';
+    const skipped = wx.getStorageSync(skipKey);
+    if (user && !user.nickName && !skipped) {
+      this.setData({ showAuthModal: true });
+    }
+  },
+
+  // ---- 授权弹窗 ----
+  onAuthChooseAvatar(e) {
+    this.setData({ pendingAvatar: e.detail.avatarUrl });
+  },
+  onAuthNickInput(e) {
+    this.setData({ pendingNick: e.detail.value });
+  },
+  onAuthSkip() {
+    wx.setStorageSync('sgcy_auth_skip', Date.now());
+    this.setData({ showAuthModal: false });
+  },
+  async onAuthConfirm() {
+    const { pendingAvatar, pendingNick } = this.data;
+    this.setData({ showAuthModal: false });
+    const update = {};
+    if (pendingNick.trim()) update.nickName = pendingNick.trim();
+    if (pendingAvatar) {
+      try {
+        wx.showLoading({ title: '上传头像' });
+        const cloudPath = `avatars/${Date.now()}.png`;
+        const up = await wx.cloud.uploadFile({ cloudPath, filePath: pendingAvatar });
+        update.avatarUrl = up.fileID;
+      } catch (e) {
+        wx.hideLoading();
+      }
+    }
+    if (Object.keys(update).length > 0) {
+      try {
+        await api.updateProfile(update);
+        const app = getApp();
+        app.globalData.userInfo = { ...app.globalData.userInfo, ...update };
+        wx.hideLoading();
+        wx.showToast({ title: '设置成功', icon: 'success' });
+      } catch (e) {
+        wx.hideLoading();
+      }
+    }
   },
 
   onShow() {
@@ -63,9 +113,11 @@ Page({
         categories,
         shopConfig: shopConfig || {},
         activeCategory: categories[0] ? categories[0].name : '',
+        loading: false,
       }, () => this.applyFilter());
     } catch (e) {
       console.error('loadData failed', e);
+      this.setData({ loading: false });
       wx.showToast({ title: '加载失败', icon: 'none' });
     }
   },

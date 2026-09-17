@@ -1,5 +1,6 @@
+<loading-mask show="{{loading}}" />
 <view class="container">
-  <view wx:if="{{reviews.length === 0}}" class="empty">暂无评价，完成订单后可评价</view>
+  <view wx:if="{{reviews.length === 0 && !loading}}" class="empty">暂无评价，完成订单后可评价</view>
   <view class="review-card" wx:for="{{reviews}}" wx:key="_id" bindtap="goOrder" data-id="{{item.orderId}}">
     <view class="review-head">
       <view class="dish-name">{{item.dishName}}</view>

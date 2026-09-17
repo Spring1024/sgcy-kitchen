@@ -2,6 +2,7 @@ const api = require('../../../utils/api');
 
 Page({
   data: {
+    loading: true,
     shopConfig: {},
     todayRevenue: '0.00',
     menuCount: 0,
@@ -25,8 +26,10 @@ Page({
         shopConfig: cfg || {},
         menuCount: (menus || []).filter(m => m.online).length,
         todayRevenue: todayRevenue.toFixed(2),
+        loading: false,
       });
     } catch (e) {
+      this.setData({ loading: false });
       wx.showToast({ title: e.message || '加载失败', icon: 'none' });
     }
   },

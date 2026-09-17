@@ -1,3 +1,4 @@
+<loading-mask show="{{loading}}" />
 <view class="container" wx:if="{{dish}}">
   <image class="hero" src="{{dish.image}}" mode="aspectFill" />
   <view class="back-btn" bindtap="goBack">←</view>
@@ -52,4 +53,4 @@
     </view>
   </view>
 </view>
-<view wx:else class="loading">加载中...</view>
+<view wx:elif="{{!loading}}" class="loading">菜品不存在</view>

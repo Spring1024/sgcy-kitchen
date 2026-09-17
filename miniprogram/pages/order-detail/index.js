@@ -4,6 +4,7 @@ const STATUS_TEXT = { pending: '待处理', cooking: '备餐中', done: '已完�
 
 Page({
   data: {
+    loading: true,
     order: null,
     reviewed: false,      // 是否已评价
     existingReviews: [],  // 已评价内容（只读展示）
@@ -19,6 +20,7 @@ Page({
   async load() {
     const order = await api.orderDetail(this.orderId);
     if (order.error) {
+      this.setData({ loading: false });
       wx.showToast({ title: order.error, icon: 'none' });
       return;
     }
@@ -43,7 +45,7 @@ Page({
       content: '',
     }));
 
-    this.setData({ order, reviewed, existingReviews, formReviews });
+    this.setData({ order, reviewed, existingReviews, formReviews, loading: false });
   },
 
   onRate(e) {

@@ -3,7 +3,7 @@ const api = require('../../../utils/api');
 const STATUS_TEXT = { pending: '待处理', cooking: '备餐中', done: '已完成', cancelled: '已取消' };
 
 Page({
-  data: { order: null, totalQty: 0 },
+  data: { loading: true, order: null, totalQty: 0 },
 
   onLoad(options) {
     this.orderId = options.id;
@@ -13,12 +13,13 @@ Page({
   async load() {
     const order = await api.orderDetail(this.orderId);
     if (order.error) {
+      this.setData({ loading: false });
       wx.showToast({ title: order.error, icon: 'none' });
       return;
     }
     order.statusText = STATUS_TEXT[order.status] || order.status;
     const totalQty = order.items.reduce((s, i) => s + i.quantity, 0);
-    this.setData({ order, totalQty });
+    this.setData({ order, totalQty, loading: false });
   },
 
   async update(e) {

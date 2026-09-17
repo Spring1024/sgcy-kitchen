@@ -4,6 +4,7 @@ const QUICK_OPTIONS = ['辣度', '甜度', '酸度'];
 
 Page({
   data: {
+    loading: true,
     items: [],
     filtered: [],
     query: '',
@@ -35,8 +36,10 @@ Page({
       this.setData({
         items,
         onlineCount: items.filter(i => i.online).length,
+        loading: false,
       }, () => this.applyFilter());
     } catch (e) {
+      this.setData({ loading: false });
       wx.showToast({ title: e.message || '加载失败', icon: 'none' });
     }
   },
