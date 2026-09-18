@@ -35,6 +35,7 @@
           <text class="order-total">¥{{item.total}}</text>
           <text class="order-time">{{item.timeLabel}}</text>
         </view>
+        <view class="order-user">{{item.contactName || item.userNickName || '匿名用户'}}</view>
         <view class="order-actions" catchtap="noop">
           <view wx:if="{{item.status === 'pending'}}" class="btn btn-yellow" catchtap="update" data-id="{{item.orderId}}" data-status="cooking">开始备餐</view>
           <view wx:if="{{item.status === 'cooking'}}" class="btn btn-teal" catchtap="update" data-id="{{item.orderId}}" data-status="done">标记完成</view>

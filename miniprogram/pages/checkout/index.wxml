@@ -12,7 +12,7 @@
         class="day-item {{reserveDay === item.offset ? 'active' : ''}}"
         bindtap="selectDay" data-offset="{{item.offset}}"
       >
-        <view class="day-week">{{item.isToday ? '今天' : item.week}}</view>
+        <view class="day-week">{{item.week}}</view>
         <view class="day-date">{{item.date}}</view>
       </view>
     </view>
@@ -43,6 +43,15 @@
     </view>
   </view>
 
+  <!-- 联系人信息（选填） -->
+  <view class="card">
+    <view class="card-title">联系人信息（选填）</view>
+    <view class="contact-row">
+      <input class="contact-input" placeholder="联系人姓名" value="{{contactName}}" bindinput="onContactName" />
+      <input class="contact-input" type="number" placeholder="联系电话" value="{{contactPhone}}" bindinput="onContactPhone" />
+    </view>
+  </view>
+
   <!-- 备注 -->
   <view class="card">
     <view class="card-title">订单备注</view>
@@ -51,8 +60,6 @@
 
   <!-- 价格明细 -->
   <view class="card">
-    <view class="price-row"><text class="text-muted">商品小计</text><text>¥{{subtotal}}</text></view>
-    <view class="price-row"><text class="text-muted">打包费</text><text>¥{{packagingFee}}</text></view>
     <view class="price-row total-row"><text class="text-bold">合计</text><text class="text-accent total-num">¥{{total}}</text></view>
     <view class="points-tip">完成本单预计可获得 {{pointsEarned}} 积分</view>
   </view>
@@ -61,8 +68,11 @@
 
   <view class="bottom-bar">
     <view class="total-box">
-      <text class="text-muted" style="font-size:22rpx">应付</text>
-      <view class="text-accent total-big">¥{{total}}</view>
+      <view class="total-top">
+        <text class="text-muted" style="font-size:22rpx">应付</text>
+        <view class="text-accent total-big">¥{{total}}</view>
+      </view>
+      <view class="total-tip">图个乐趣，不实际收费</view>
     </view>
     <view class="btn-primary submit-btn {{submitting ? 'disabled' : ''}}" bindtap="submit">
       {{submitting ? '提交中...' : '提交订单'}}

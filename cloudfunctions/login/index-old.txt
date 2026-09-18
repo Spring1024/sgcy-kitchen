@@ -49,12 +49,11 @@ exports.main = async (event) => {
 
     case 'updateProfile': {
       const { OPENID } = cloud.getWXContext();
-      const { nickName, avatarUrl, phone, subscribedAt } = event;
+      const { nickName, avatarUrl, phone } = event;
       const data = {};
       if (nickName !== undefined) data.nickName = nickName;
       if (avatarUrl !== undefined) data.avatarUrl = avatarUrl;
       if (phone !== undefined) data.phone = phone;
-      if (subscribedAt !== undefined) data.subscribedAt = subscribedAt;
       await db.collection('users').where({ openid: OPENID }).update({ data });
       return { success: true };
     }

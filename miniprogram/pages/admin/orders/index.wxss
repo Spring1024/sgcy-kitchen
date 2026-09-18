@@ -51,3 +51,5 @@
 }
 .atab text { font-size: 20rpx; }
 .atab.active { color: #E85D04; font-weight: bold; }
+
+.order-user { font-size: 22rpx; color: rgba(55,6,23,0.5); margin-top: 4rpx; }

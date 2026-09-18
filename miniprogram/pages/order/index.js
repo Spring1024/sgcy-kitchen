@@ -146,6 +146,11 @@ Page({
 
   // ---- 购物车逻辑 ----
   onAdd(e) {
+    // 打烊时禁止下单
+    if (this.data.shopConfig.isOpen === false) {
+      wx.showToast({ title: '已打烊，可私聊店长营业', icon: 'none' });
+      return;
+    }
     const item = e.currentTarget.dataset.item;
     if (item.specs && item.specs.length > 0) {
       // 打开规格弹窗，默认每项第一个
@@ -197,11 +202,19 @@ Page({
   },
 
   toggleCart() {
+    if (this.data.shopConfig.isOpen === false) {
+      wx.showToast({ title: '已打烊，可私聊店长营业', icon: 'none' });
+      return;
+    }
     this.setData({ showCart: !this.data.showCart });
   },
 
   goCheckout() {
     if (this.data.cart.length === 0) return;
+    if (this.data.shopConfig.isOpen === false) {
+      wx.showToast({ title: '已打烊，可私聊店长营业', icon: 'none' });
+      return;
+    }
     this.setData({ showCart: false });
     wx.navigateTo({ url: '/pages/checkout/index' });
   },

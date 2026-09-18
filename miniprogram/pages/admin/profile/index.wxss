@@ -44,3 +44,22 @@
 }
 .atab text { font-size: 20rpx; }
 .atab.active { color: #E85D04; font-weight: bold; }
+
+/* 新订单提醒卡片 */
+.notify-card {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.notify-left { display: flex; align-items: center; gap: 16rpx; }
+.notify-title { font-size: 28rpx; font-weight: bold; color: #1B1A16; }
+.notify-desc { font-size: 22rpx; color: rgba(55,6,23,0.45); margin-top: 4rpx; }
+.notify-status {
+  font-size: 22rpx; padding: 6rpx 20rpx; border-radius: 999rpx;
+  background: rgba(55,6,23,0.08); color: rgba(55,6,23,0.4);
+}
+.notify-status.on { background: rgba(42,157,143,0.1); color: #2A9D8F; }
+
+/* 手动模式提示 */
+.auto-tip {
+  margin-top: 16rpx; font-size: 22rpx; color: rgba(247,225,215,0.5);
+  text-align: center; padding: 8rpx;
+}

@@ -34,6 +34,7 @@ module.exports = {
   // shop
   shopConfig: () => call('shop', 'getConfig'),
   shopToggle: (isOpen) => call('shop', 'toggleOpen', { isOpen }),
+  shopSetAuto: () => call('shop', 'setAuto'),
 
   // review
   reviewCreate: (payload) => call('review', 'create', payload),

@@ -55,8 +55,8 @@
     </scroll-view>
   </view>
 
-  <!-- 悬浮购物车 -->
-  <view wx:if="{{totalCount > 0}}" class="cart-bar" bindtap="toggleCart">
+  <!-- 悬浮购物车：打烊时隐藏 -->
+  <view wx:if="{{totalCount > 0 && shopConfig.isOpen !== false}}" class="cart-bar" bindtap="toggleCart">
     <view class="cart-left">
       <view class="cart-icon">🛒<text class="cart-count">{{totalCount}}</text></view>
       <text>查看购物车</text>

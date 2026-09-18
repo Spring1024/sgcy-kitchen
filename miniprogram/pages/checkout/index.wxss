@@ -59,3 +59,15 @@
 .total-big { font-size: 44rpx; font-weight: bold; }
 .submit-btn { padding: 0 64rpx; height: 96rpx; font-size: 30rpx; }
 .submit-btn.disabled { opacity: 0.5; }
+
+/* 联系人信息 */
+.contact-row { display: flex; gap: 16rpx; }
+.contact-input {
+  flex: 1; background: #FFF8F0; border-radius: 16rpx; padding: 20rpx 24rpx;
+  font-size: 26rpx; border: 1rpx solid rgba(55,6,23,0.08); box-sizing: border-box;
+  height: 76rpx;
+}
+
+/* 底部提示 */
+.total-top { display: flex; align-items: center; gap: 12rpx; }
+.total-tip { font-size: 20rpx; color: rgba(55,6,23,0.35); margin-top: 4rpx; }
